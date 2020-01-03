@@ -1,0 +1,102 @@
+	opcode destination, source1, source2 
+>> ADD Rd, Rn, Op2 ;Rd = Rn + Op2  
+>> ADD R1, R2 ;R1 = R1 + R2
+>> ADC Rd, Rn, Op2 ;Rd = Rn + Op2 (with Carry)
+>> AND Rd, Rn, Op2 ;Rd = Rn & Op2  
+>> BIC Rd, Rn, Op2 ;Rd = Rn & ~Op2
+>> CMP Rn, Op2 ;Compare	Rn with Op2 
+>> CMN Rn, Op2 ;Compare	Rn with	negative of Op2 
+>> EOR Rd, Rn, Op2 ;Rd = Rn ^ Op2  
+>> MVN Rd, Op2 ;Rd = -Op2
+>> MOV Rd, Op2 ;Rd = Op2
+>> ORR Rd, Rn, Op2 ;Rd = Rn | Op2 
+>> RSB Rd, Rn, Op2 ;Rd = Rn - Op2 
+>> RSC Rd, Rn, Op2 ;Rd = Rn - Op2 (with carry)
+>> SBC Rd, Rn, Op2 ;Rd = Rn - Op2 (with carry)
+>> SUB Rd, Rn, Op2 ;Rd = Rn	– Op2 
+>> SUB R1, R2 ;R1 = R1 - R2
+>> TEQ Rn, Op2 ;Rn	^ Op2 
+>> TST Rn, Op2 ;Rn & Op2
+>> LDR Rd,[Rx] ;load Rd with the contents of location pointed to by Rx register.
+>> STR Rx,[Rd] ;store register Rx into locations pointed to by Rd	
+>> LDRB Rd, [Rx] ;load a byte
+>> STRB Rx, [Rd] ;store the byte in register Rx into memory location pointed to by Rd
+>> LDRH Rd, [Rx] ;load Rd with the half-word pointed to by Rx register
+>> STRH Rx, [Rd] ;store half-word (2-byte) in register Rx into locations pointed to by Rd 
+# If we need an instruction to update the value of status bits in CPSR, we have to put the ‘S’ suffix at the end of the opcode.
+	# Branch works like loops
+	
+	N, the negative flag
+	Z, the zero flag 
+	C, the carry flag 
+	V, the overflow flag 
+	
+	ANDS -> C, Z, N
+	ORRS -> C, Z, N
+	MOVS -> C, Z, N
+	ADDS -> C, Z, N, V
+	SUBS -> C, Z, N, V
+	B (branch) -> No Flags
+	
+	BCS 	Branch	if	C	=	1 
+	BCC 	Branch	if	C	=	0 
+	BEQ 	Branch	if	Z	=	1 
+	BNE 	Branch	if	Z	=	0 
+	BMI 	Branch	if	N	=	1 
+	BPL 	Branch	if	N	=	0
+	BVS 	Branch	if	V	=	1 
+	BVC 	Branch	if	V	=	0 
+	
+	BCS/BHS branch if carry set/branch if higher or same Branch	if	C = 1
+	BCC/BLO branch if carry	clear/branch if lower Branch if	C = 0 
+	BEQ branch if equal Branch if Z	= 1 
+	BNE branch if not equal Branch if Z	= 0 
+	BLS branch if lower	or same Branch if Z	= 1	or C = 0 
+	BHI branch if higher Branch	if Z = 0 and C = 1 
+	
+>> 	ADR Rn,	label ;To load registers with the addresses of memory locations we can also use the ADR pseudo-instruction
+	
+>> Assembler directives:
+	AREA 	Instructs the assembler to assemble	a new code or data section 
+	END 	Informs the assembler that it has reached the end of a source code. 
+	EQU 	Associate a symbolic name to a numeric constant. 
+	INCLUDE It adds the contents of a file to the current program. 
+	
+>> AREA section_name, attribute, attribute, ... 
+	Attribute: READONLY, READWRITE, CODE, DATA
+				EQU: To define a constant value -> Ali EQU 0x25 -> Ali now is a variable
+				RN: To give a CPU register a name -> VAL1 RN R1 ;define VAL1 as a name for R1
+				INCLUDE: to read in the content of a file to the current program file 
+				DCB: define constant byte -> MYVALUE DCB 5 ;MYVALUE = 5
+				DCW: define constant half-word -> MYDATA DCW 0x20, 0xF230, 5000, 0x9CD7
+				DCD: define constant word -> MYDATA DCD 0x200000, 0x30F5, 5000000, 0xFFFF9CD7
+				SPACE: To allocate memory for variables without initial values -> LONG_VAR SPACE 4 ; Allocate 4 bytes
+				ALIGN: To make sure data is aligned on the 32-bit word or 16-bit half word address boundary -> ALIGN 4 ;the next instruction is word (4 bytes) aligned
+				
+				ADD Add 							ADDS Add and set flags
+				ADC Add	with carry 					ADCS Add with carry	and	set	flags 
+				SUB SUBS 							SUBS Subtract and set flags 
+				SBC Subtract with carry 			SBCS Subtract with carry and set flags 
+				MUL Multiply 						MULS Multiply and set flags 
+				UMULL Multiply long					UMULLS Multiply	Long and set flags 
+				RSB Reverse	subtract 				RSBS Reverse subtract and set flags 
+				RSC Reverse	subtract with carry 	RSCS Reverse subtract with carry and set flags 
+	
+>> 	MLA	 Rd, Rm, Rs, Rn ;Rd = Rm × Rs + Rn 
+>> 	UMLAL RdLo, RdHi, Rn, Op2 ;RdHi:RdLo = Rn × Op2	+ RdHi:RdLo 
+>> 	LSR: Logical shift right
+>> 	LSL: Logical shift left
+		MOV R0, R2, LSL #8  <==>  LSL R0, R2, #8 
+>> 	ROR: Rotate right
+>> 	RRX: Rotate right through carry Takes no arguments
+>> 	ASR: Arithmetic Shift right
+		ASR Rd, Rm, Rn
+		ASRS Rd, Rm, Rn
+
+>> Branch and exchange: BX  Rn
+>> BL: Branch and Link
+
+		
+
+
+
