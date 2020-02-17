@@ -1,0 +1,8 @@
+Sort	STMFD	SP!, {R2}
+		CMP		R0, R1
+		BLE		Done 	
+		MOV		R2, R1 	
+		MOV		R1, R0
+		MOV		R0, R2
+Done	LDMFD	SP!, {R2} 
+		MOV		PC, LR 

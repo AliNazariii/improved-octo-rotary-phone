@@ -1,0 +1,10 @@
+		LDR		R10, =9631075
+		MOV		R0, #0 
+		MOV		R1, 28
+FIND		
+		AND		R2, R10, 0x7
+		CMP		R2, 0x5
+		ADDEQ	R0, R0, #1
+		MOV		R10, R10, ROR #1
+		SUBS	R1, R1, #1
+		BNE		FIND

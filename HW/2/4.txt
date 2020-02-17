@@ -1,0 +1,11 @@
+		MOV		R0, #36
+		MOV		R1, #12		
+loop	CMP		R0, R1
+		BEQ		finish 	
+		BGT		one
+		BLT		two	
+one		SUB		R0, R0, R1
+		B		loop
+two		SUB		R1, R1, R0
+		B		loop
+finish	end

@@ -1,0 +1,23 @@
+main	MOV		R0, #3
+		MOV		R10, #1 
+		BL		factor
+		
+factor	CMP		R0, #2 
+		BHS		finish
+		END
+
+finish
+		BL		MUL
+
+MUL		MOV		R1, R0 
+		MOV		R2, R10
+
+result	ADD		R10, R10, R2	
+		SUB		R1, R1, #1 	
+		CMP		R1, #1	
+		BNE		result
+		B		next	
+
+next
+		SUB		R0, R0, #1
+		B		factor
